@@ -2,13 +2,11 @@ package be.lens.mssc_brewery_self.web.controller;
 
 import be.lens.mssc_brewery_self.web.model.BeerDto;
 import be.lens.mssc_brewery_self.web.service.BeerService;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.util.UUID;
 
@@ -36,5 +34,12 @@ public class BeerController {
         httpHeaders.add("Location", "/api/v1/beer/" + savedBeerdto.getId().toString());
 
         return new ResponseEntity(httpHeaders, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{beerId}")
+    public ResponseEntity handleUpdate(@PathVariable UUID beerId, BeerDto beerDto) {
+        beerService.updateBeer(beerId, beerDto);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
