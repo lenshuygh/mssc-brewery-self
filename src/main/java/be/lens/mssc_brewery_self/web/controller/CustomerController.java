@@ -30,7 +30,7 @@ public class CustomerController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location","/api/v1/customer/" + savedCustomerDto.getId().toString());
 
-        return new ResponseEntity(httpHeaders,HttpStatus.NO_CONTENT);
+        return new ResponseEntity(httpHeaders,HttpStatus.CREATED);
     }
 
     @PutMapping("/{customerId}")
