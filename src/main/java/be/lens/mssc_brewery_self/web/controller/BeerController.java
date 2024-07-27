@@ -27,7 +27,7 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity handlePost(BeerDto beerDto) throws UnknownHostException {
+    public ResponseEntity handlePost(@RequestBody BeerDto beerDto) throws UnknownHostException {
         BeerDto savedBeerdto = beerService.saveNewBeer(beerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
         // todo: add hostname to url
@@ -37,9 +37,15 @@ public class BeerController {
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity handleUpdate(@PathVariable UUID beerId, BeerDto beerDto) {
+    public ResponseEntity handleUpdate(@PathVariable UUID beerId, @RequestBody BeerDto beerDto) {
         beerService.updateBeer(beerId, beerDto);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{beerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void handleDelete(@PathVariable UUID beerId) {
+        beerService.deleteBeer(beerId);
     }
 }
